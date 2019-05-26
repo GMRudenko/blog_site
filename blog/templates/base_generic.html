@@ -23,7 +23,9 @@
       <div class="col-sm-2">
         {% block sidebar %}
         <ul class="sidebar-nav">
-          
+          {% if user.is_authenticated}
+          <li>User: {{user.get_username}}</li>
+          <li></li>
         </ul>
         {% endblock %}
       </div>

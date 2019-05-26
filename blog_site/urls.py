@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from django.views.generic import RedirectView
+from django.conf.urls import url
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('', RedirectView.as_view(url='/blog/', permanent=True)),
+    path('accounts/', include('django.contrib.auth.urls')),
+    #path('catalog/', RedirectView.as_view(url='/blog/', permanent=True)),
 ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

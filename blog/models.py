@@ -1,19 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
-class MainBlog(models.Model):
-    title = models.CharField(max_length=50)
-    author = models.ForeignKey(User)
-
-    def __str__(self):
-        return self.title
-
-
-
-class BlogPost(models.Model):
+class MainPost(models.Model):
     title = models.CharField(max_length=50)
     text = models.TextField()
-    main_blog=models.ForeignKey('MainBlog')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return "{0}:{1}".format(self.author, self.title)
+    
+    def get_absolute_url(self):
+        return reverse('mainpost-detail', args=[str(self.id)])
+
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    main_blog=models.ForeignKey('MainPost', on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
-        return str(self.title)+str(self.main_blog.field['author'])
+        return "{0},{1}".format(self.id, self.author)
+

@@ -1,8 +1,16 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import BlogPost
+from .models import MainPost, Comment
 
-class BlogListView(generic.ListView):
-    model = 
-    context_object_name = 'blog_list'
-    paginate_by = 10
+def index(request):
+    return render(
+        request,
+        'index.html',
+    )
+
+class MainPostView(generic.DetailView):
+    model = MainPost
+
+class MainPostListView(generic.ListView):
+    model = MainPost
+    paginate_by=10

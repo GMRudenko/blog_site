@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{mainpost.author}}:{{mainpost.title}}</h1>
+
+<p>{{mainpost.text}}</p>
+
+<div style="margin-left:20px;margin-top:20px">
+  <h4>Comments:</h4>
+
+  {% for com in mainpost.comment_set.all %}
+  <hr>
+  <p></p>
+  <p>{{com.author}}:{{com.text}}</p>
+  {% endfor %}
+</div>
+{% endblock %}
