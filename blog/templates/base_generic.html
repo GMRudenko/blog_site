@@ -10,7 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <!-- Добавление дополнительного статического CSS файла -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -23,9 +22,13 @@
       <div class="col-sm-2">
         {% block sidebar %}
         <ul class="sidebar-nav">
-          {% if user.is_authenticated}
+          {% if user.is_authenticated %}
           <li>User: {{user.get_username}}</li>
-          <li></li>
+          <li><a href="{%url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else%}
+          <li><a href="{%url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}
+          <li><a href="{%url 'all-posts'%}">All posts</a></li>
         </ul>
         {% endblock %}
       </div>
