@@ -2,6 +2,9 @@
 
 {% block content %}
 <h1>Post List</h1>
+{% if user.is_authenticated %}
+<li><a href="{%url 'mainpost-create'%}">Create post</a></li>
+{% endif %}
 {% if mainpost_list %}
 <ul>
 
