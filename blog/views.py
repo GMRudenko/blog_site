@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import FormView
 
 
 def index(request):
@@ -46,6 +48,13 @@ def MainPostView(request, pk):
 
     return render(request, 'blog/mainpost_detail.html', context)
 
+class RegisterFormView(FormView):
+    form_class = UserCreationForm
+    success_url="/blog/"
+    template_name="registration/register.html"
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterFormView,self).form_valid(form)
 
 class MainPostListView(generic.ListView):
     model = MainPost

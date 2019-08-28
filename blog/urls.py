@@ -8,5 +8,5 @@ urlpatterns = [
     path('post/<int:pk>', views.MainPostView, name='mainpost-detail'),
     path('all_posts/', views.MainPostListView.as_view(), name='all-posts'),
     path('create_post/', views.MainPostCreate, name='mainpost-create'),
-
+    url(r'^register/$', views.RegisterFormView.as_view(), name='register'),
 ]
